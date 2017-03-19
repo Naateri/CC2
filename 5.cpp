@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-//FALTA, SOLO FUNCIONA HASTA EL 99 999
+//FALTA, SOLO FUNCIONA HASTA EL 999 999
 string units[] = {"uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez"};
 string teens[] = {"once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho", "diecinueve"};
 string twenties[] = {"veinte", "veinti", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
@@ -108,7 +108,7 @@ string getAfter(int num){
 	return after;
 }
 
-string menor100000(int num){
+string menor100000(int num){ //menor 100 000
 	int decmil;
 	string before, lol, after;
 	decmil = num/1000;
@@ -119,6 +119,23 @@ string menor100000(int num){
 	lol = before + " mil " + after;
 	return lol;
 }
+
+string menor1000000(int num){ //menor 1 000 000
+	int centmil;
+	string before, lol, after;
+	centmil = num/1000;
+	before = menor1000(centmil);
+	if (centmil%10 == 1){
+		for(int i = 0; i<before.length()-1; i++)
+			lol += before[i];
+		before = lol;
+	}
+	num %= 1000;
+	after = getAfter(num);
+	lol = before + " mil " + after;
+	return lol;
+}
+
 string numALetras(int num){
 	if (num < 10)
 		return menor10(num);
@@ -128,8 +145,10 @@ string numALetras(int num){
 		return menor1000(num);
 	else if (num < 10000)
 		return menor10000(num);
-	else if (num < 100000)
+	else if (num < 100000) //100 000
 		return menor100000(num);
+	else if (num < 1000000) //1 000 000
+		return menor1000000(num);
 }
 
 int main() {
