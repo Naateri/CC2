@@ -1,17 +1,10 @@
 #include <iostream>
 using namespace std;
-//Arreglar la formula de 2.cpp
-
-int monthsLess30[4] = {4, 6, 9, 10}; //meses con menos de 30 dias
+int regular[]={0,3,3,6,1,4,6,2,5,0,3,5};
+int bisiesto[]={0,3,4,0,2,5,0,3,6,1,4,6};
 char abvDOF[7] = {'D', 'L', 'M', 'X', 'J', 'V', 'S'};
-
-int askYear(){ //pregunta año
-	int year;
-	cout << "Ingrese un año: ";
-	cin >> year;
-	return year;
-}
-
+int monthsLess30[4] = {4, 6, 9, 10}; //meses con menos de 30 dias
+	
 bool esBisiesto(int year){ 
 	/* 
 	p = es divisble entre 4
@@ -22,6 +15,34 @@ bool esBisiesto(int year){
 		return true;
 	else
 		return false;
+}
+
+int getDay(int a, int m, int d){
+	int result1,result2,result3,result4,result5;
+	if(esBisiesto(a))
+		m=bisiesto[m-1];
+	else
+		m=regular[m-1];
+
+	result1=(a-1)%7;
+	result2=(a-1)/4;
+	result3=(3*(((a-1)/100)+1))/4;
+	result4=(result2-result3)%7;
+	result5=d%7;
+	d=(result1+result4+m+result5)%7;
+	return d;
+}
+
+char returnDay(int d){
+	return abvDOF[d];
+}
+
+
+int askYear(){ //pregunta año
+	int year;
+	cout << "Ingrese un año: ";
+	cin >> year;
+	return year;
 }
 
 int askMonth(){
@@ -46,13 +67,13 @@ int getDays(int month, int year){
 			return 29;
 		else //si no es bisiesto
 			return 28;
-		}
+	}
 	else
 		return 31; 
 	
 }
 
-int shiftMonth(int month){
+/*int shiftMonth(int month){ ALGORITMO ANTIGUO
 	if (month > 2)
 		return month-2;
 	else
@@ -69,7 +90,7 @@ int operation(int day, int month, int year){
 	month = shiftMonth(month);
 	res = day + (2.6 * month - 0.2) + year + year/4  + c/4 - (2*c); //formula
 	return res % 7;
-}
+}*/
 //algoritmo de Gauss, sacado de: https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week#Disparate_variation
 
 char getDay(int num){
@@ -78,11 +99,11 @@ char getDay(int num){
 
 void imprimirCalendario(int month, int days, int year){
 	int i = 0, j = 0, op;
-	op = operation(1, month, year);
+	op = getDay(year, month, 1); //dia del primero del mes
 	//char firstDay = getDay(op);
 	for(i; i<7; i++)
 		cout << abvDOF[i] << " ";
-	cout << "resultado operacion " << op;
+	//cout << "resultado operacion " << op;
 	cout << endl;
 	//while(firstDay != abvDOF[j]){
 	while(j < op){
