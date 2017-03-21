@@ -11,11 +11,11 @@ int main()
 
     int result1,result2,result3,result4,result5;
 
-    cout<<"Introduce el dia :";
+    cout<<"Introduce el dia: ";
     cin>>d;
-    cout<<"Introduce el mes:";
+    cout<<"Introduce el mes: ";
     cin>>m;
-    cout<<"Introduce el ano:";
+    cout<<"Introduce el anho: ";
     cin>>a;
 
     if((a%4==0) && (a%100!=0 || a%400==0))
