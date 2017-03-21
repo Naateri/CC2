@@ -2,19 +2,20 @@
 #include <string>
 using namespace std;
 
+//error en 1 de marzo y 1 de abril de 2017 (?)
 int monthsLess30[4] = {4, 6, 9, 10}; //meses con menos de 30 dias
 string daysOfWeek[7] = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"}; //0 es sabado, 1 domingo...
 
-int askYear(){ //pregunta año
+int askYear(){ //pregunta aÃ±o
 	int year;
-	cout << "Ingrese un año: ";
+	cout << "Ingrese un aÃ±o: ";
 	cin >> year;
 	return year;
 }
 bool esBisiesto(int year){ 
 	/* 
 	p = es divisble entre 4
-	¬q = no es divisible entre 100
+	Â¬q = no es divisible entre 100
 	r = es divisible entre 400
 	*/
 	if ((year%4 == 0) && (year%100 != 0 || year%400 == 0))
@@ -28,7 +29,7 @@ int askMonth(){
 	cout << "Ingrese un mes (del 1 al 12: 1 siendo Enero, 12 Diciembre): ";
 	cin >> month;
 	if (month > 12 || month < 0){
-		cout << "Ingrese un mes válido\n";
+		cout << "Ingrese un mes vÃ¡lido\n";
 		askMonth();
 	}
 	return month;
@@ -36,17 +37,17 @@ int askMonth(){
 	
 int askDay(int month, int year){
 	int day, i = 0;
-	cout << "Ingrese el día del mes (del 1 al 31): ";
+	cout << "Ingrese el dÃ­a del mes (del 1 al 31): ";
 	cin >> day;
 	if (day > 28 && month == 2 && !esBisiesto(year)){ //si es febrero, no es bisiesto,
-		cout << "Ingrese un numero válido, el año no es bisiesto.\n"; // y se ingresa un numero
+		cout << "Ingrese un numero vÃ¡lido, el aÃ±o no es bisiesto.\n"; // y se ingresa un numero
 		askDay(month, year); //mayor a 28
 	} else if (day > 30) { //si el dia es mayor a 30
 		int mnth;
 		for(i; i<4; i++){
 			mnth = monthsLess30[i]; //y es parte de un mes 
 			if (mnth == month){ //con 30 dias
-				cout << "Ingrese un número válido.\n";
+				cout << "Ingrese un nÃºmero vÃ¡lido.\n";
 				askDay(month, year);
 			}
 		}
@@ -63,13 +64,13 @@ int shiftMonth(int month){
 	else
 		return month+10;
 	//Marzo = 1, Abril = 2...Febrero = 12
-}
+} 
 
 int operation(int day, int month, int year){
 	int res, c;
+	c = (year/100); //primeros 2 digitos
 	if (month <= 2) //si es ene o feb
 		year--;
-	c = (year/100); //primeros 2 digitos, siglo
 	year = year % 100; //ultimos 2 digitos
 	month = shiftMonth(month);
 	res = day + (2.6 * month - 0.2) + year + year/4  + c/4 - (2*c); //formula
@@ -86,9 +87,8 @@ int main() {
 	year = askYear();
 	month = askMonth();
 	day = askDay(month, year);
-	cout << "El día ingresado es (DD/MM/YY) " << day << "/" << month << "/" << year%100 << endl;
-	cout << "El día de la semana es: " << getDay(operation(day, month, year));
-	//cout << operation(day, month, year);
+	cout << "El dÃ­a ingresado es (DD/MM/YY) " << day << "/" << month << "/" << year%100 << endl;
+	cout << "El dÃ­a de la semana es: " << getDay(operation(day, month, year));
+	cout << operation(day, month, year);
 	return 0;
 }
-
