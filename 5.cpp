@@ -158,9 +158,8 @@ string menor10Millon(int num){ //1 000 000 -> 9 999 999
 	if (unitMil == 1){
 		before1 = "un";
 		before2 = miles[1];
-	} else {
+	} else
 		before2 = miles[2];
-	}
 	num %= 1000000;
 	after = getAfter2(num);
 	lol = before1 + " " + before2 + " " + after;
@@ -191,7 +190,7 @@ string menor1000Millon(long num){ // 100 000 000 -> 999 999 999
 
 string menor10MilMillon(unsigned long long int num){ //1 000 000 000 -> 9 999 999 999
 	string before, lol, after;
-	int milMill;
+	long long milMill;
 	milMill = num/1000000;
 	before = menor10000(num);
 	num %= 1000000;
