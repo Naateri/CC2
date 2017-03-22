@@ -113,6 +113,11 @@ string menor100000(int num){ //10 000 -> 99 999
 	string before, lol, after;
 	decmil = num/1000;
 	before = menor100(decmil);
+	if (decmil%10 == 1){
+		for(int i = 0; i<before.length()-1; i++)
+			lol += before[i];
+		before = lol;
+	}
 	//lol = before + " mil";
 	num %= 1000;
 	after = getAfter(num);
