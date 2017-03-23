@@ -8,7 +8,7 @@ private:
 	string alfabeto;
 	int key;
 	int generarClaves(){
-		return = rand() % 10 + 1;
+		return rand() % 10 + 1;
 	}
 public:
 	Cesar(){
@@ -65,10 +65,8 @@ public:
 		}
 		return descifrado;
 	}
-	
-	
+	int getKey() {return this->key;}
 };
-
 
 int main(){
 	return 0;
