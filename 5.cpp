@@ -14,7 +14,7 @@ unsigned long long int askNumber(){
 	unsigned long long int num;
 	cout << "Ingrese un numero: ";
 	cin >> num;
-	if (num > 999999999999){
+	if (num > 999999999999ULL){
 		cout << "Numero muy grande.\n";
 		return askNumber();
 	}
@@ -195,12 +195,16 @@ string menor1000Millon(long num){ // 100 000 000 -> 999 999 999
 
 string menor10MilMillon(unsigned long long int num){ //1 000 000 000 -> 9 999 999 999
 	string before, lol, after;
+	/*long long *milMill = NULL;
+	milMill = new long long;
+	*milMill = num/1000000;*/
 	long long milMill;
 	milMill = num/1000000;
-	before = menor10000(num);
+	before = menor10000(milMill);
+	//delete [] milMill;
 	num %= 1000000;
 	after = getAfter2(num);
-	lol = before + " " + after;
+	lol = before + " " + miles[2] + " " + after;
 	return lol;
 }
 
@@ -223,7 +227,7 @@ string numALetras(unsigned long long int num){
 		return menor100Millon(num);
 	else if (num < 1000000000) //100 000 000 -> 999 999 999
 		return menor1000Millon(num);
-	else if (num < 10000000000) //1 000 000 000 -> 9 999 999 999
+	else if (num < 10000000000ULL) //1 000 000 000 -> 9 999 999 999
 		return menor10MilMillon(num);
 }
 
