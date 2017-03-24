@@ -31,10 +31,6 @@ public:
 				msj = "Error.\n";
 				return msj;
 			}
-			/*if (found+key > alfabeto.length()){
-				//found -= alfabeto.length()
-				found = modulo(found, alfabeto.length());
-			}*/
 			found = modulo(found+key, alfabeto.length());
 			cifrado += alfabeto[found];
 			
