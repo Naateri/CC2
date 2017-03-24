@@ -2,7 +2,10 @@
 #include <string>
 using namespace std;
 
-//FALTA, SOLO FUNCIONA HASTA EL 999 999 999 PROBLEMAS A PARTIR DE 1 000 000 000 segment fault error 
+/*
+Completado, solo faltaría ver algunos casos particulares, y probablemente se pueda hacer
+un programa más efectivo computacionalmente. kthxbye
+*/
 string units[] = {"uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez"};
 string teens[] = {"once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho", "diecinueve"};
 string twenties[] = {"veinte", "veinti", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
@@ -208,6 +211,28 @@ string menor10MilMillon(unsigned long long int num){ //1 000 000 000 -> 9 999 99
 	return lol;
 }
 
+string menor100MilMillon(unsigned long long int num){
+	string before, lol, after;
+	long long milMill;
+	milMill = num/1000000;
+	before = menor100000(milMill) + " " + miles[2];
+	num %= 1000000;
+	after = getAfter2(num);
+	lol = before + " " + after;
+	return lol;
+}
+
+string menor1Billon(unsigned long long int num){
+	string before, lol, after;
+	long long milMill;
+	milMill = num/1000000;
+	before = menor1000000(milMill) + " " + miles[2];
+	num %= 1000000;
+	after = getAfter2(num);
+	lol = before + " " + after;
+	return lol;
+}
+
 string numALetras(unsigned long long int num){
 	if (num <= 10) //1 -> 10
 		return menor10(num); 
@@ -229,6 +254,10 @@ string numALetras(unsigned long long int num){
 		return menor1000Millon(num);
 	else if (num < 10000000000ULL) //1 000 000 000 -> 9 999 999 999
 		return menor10MilMillon(num);
+	else if (num < 100000000000ULL) //10 000 000 000 -> 99 999 999 999
+		return menor100MilMillon(num);
+	else //100 000 000 000 -> 999 999 999 999
+		return menor1Billon(num);
 }
 
 int main(int argc, char *argv[]) {
