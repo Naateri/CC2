@@ -82,7 +82,7 @@ int inversus(vector<int> &cocientes, int mod){
 	cout << mod << endl;
 	for(int i = 0; i < cocientes.size(); i++){
 		q = cocientes.at(i);
-		p = p_0 - p_1*q;
+		p = p_0 - (p_1*q);
 		if (p<0)//p = modulo(p, mod);
 			p%= mod;
 		p_0 = p_1;
