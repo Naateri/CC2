@@ -133,7 +133,7 @@ string menor1000000(int num){ //100 000 ->  999 999
 	string before, lol, after;
 	centmil = num/1000;
 	before = menor1000(centmil);
-	if (centmil%10 == 1){
+	if (centmil == 1){
 		for(int i = 0; i<before.length()-1; i++)
 			lol += before[i];
 		before = lol;
