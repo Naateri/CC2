@@ -1,7 +1,10 @@
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <string>
 #include <stdlib.h> //rand
+
+using namespace std;
 
 class Cesar{
 private:
@@ -25,13 +28,7 @@ public:
 				continue;
 			}
 			found = alfabeto.find(letra);
-			//cout << found << endl;
-			if (found > alfabeto.length()){
-				cout << "Error. Letra no encontrada.\n";
-				msj = "Error.\n";
-				return msj;
-			}
-			found = modulo(found+key, alfabeto.length());
+			found = (found+key) % alfabeto.length();
 			cifrado += alfabeto[found];
 			
 		}
@@ -52,11 +49,9 @@ public:
 				cifrado = "Error.\n";
 				return cifrado;
 			} 
-			/*if (found-key < 0){
-				//found += alfabeto.length();
-				found = modulo(found, alfabeto.length());
-			}*/
-			found = modulo(found-key, alfabeto.length());
+			if (found-key < 0){
+				found = (found-key) % alfabeto.length();
+			}
 			descifrado += alfabeto[found];
 		}
 		return descifrado;
@@ -65,5 +60,18 @@ public:
 };
 
 int main(){
+	ifstream msjOriginal;
+	ofstream msjCifrado;
+	string msj, cifrado, descifrado;
+	msjOriginal.open("cifrar.txt");
+	msjCifrado.open("descifrar.txt");
+	while(getline(msjOriginal, msj)){ //probando
+		cout << msj << endl;
+	}
+	/*
+	codigo por agregarse
+	*/
+	msjOriginal.close();
+	msjCifrado.close();
 	return 0;
 }
