@@ -11,20 +11,9 @@ int modulo(int a, int n){
 	q = a/n;
 	r = a - (q*n);
 	if (r<0){
-		q--;
 		r += n;
 	}
 	return r;
-}
-
-int mcd(int a, int b){ //mcd iterativo 
-	int r;
-	while (b!=0){
-		r = modulo(a, b);
-		a = b;
-		b = r;
-	}
-	return b;
 }
 
 void menu()
@@ -79,12 +68,11 @@ void multi()
 
 int inversus(vector<int> &cocientes, int mod){
 	int p_0 = 0, p_1 = 1, p, q;
-	cout << mod << endl;
-	for(int i = 0; i < cocientes.size(); i++){
+	for(int i = 0; i < cocientes.size()-1; i++){
 		q = cocientes.at(i);
 		p = p_0 - (p_1*q);
 		if (p<0)//p = modulo(p, mod);
-			p%= mod;
+			p = p%mod;
 		p_0 = p_1;
 		p_1 = p;
 	}
@@ -92,30 +80,28 @@ int inversus(vector<int> &cocientes, int mod){
 }
 void inv()
 {
-    int a, b, r, resul, modul, modOriginal, prevMod;
+    int a, b, resul, modul, modOriginal, prevMod = 1;
     cout<<"Ingrese el valor: ";
     cin>>a;
     cout<<"Ingrese el modulo: ";
     cin>>modul;
 	vector<int> results;
-	vector<int> mods;
 	modOriginal = modul;
-	cout << modOriginal;
-	do{
-	prevMod = modulo(modul, a);
-	mods.push_back(prevMod);
-	b = (modul - prevMod) / a;
-	//cout << modul << " = " << b << "(" << a << ") + " << prevMod << endl;
-	modul = a;	
-	a = prevMod; //euclides	
-	results.push_back(b);
-	}while(b!=0);
-	cout << modOriginal;
-	if (mods.at(mods.size()-2) != 1)
+	while(1){ 
+		prevMod = modul % a; //prevmod = r
+		b = (modul - prevMod) / a;
+		//cout << modul << " = " << b << "(" << a << ") + " << prevMod << endl;
+		results.push_back(b);
+		if (prevMod == 0)
+			break;
+		modul = a;	
+		a = prevMod; //euclides	
+	}
+	if (a != 1)
 		cout << "No tiene inverso.";
 	else {
 		resul = inversus(results, modOriginal); //division entre 0?
-		cout << resul;
+		cout << "El inverso es: " << resul << endl;
 	}	
 }
 int main()
