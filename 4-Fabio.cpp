@@ -8,8 +8,8 @@ int moneditas[] = {5, 2, 1};
 //int contBills[8];
 //float contMoneds[3];
 
-float askAmount(){
-	float am;
+double askAmount(){
+	double am;
 	cout << "Ingrese la cantidad: ";
 	cin >> am;
 	if (am >999999.90){
@@ -19,7 +19,7 @@ float askAmount(){
 	return am;
 }
 
-void totalBills(float amount){
+void totalBills(double amount){
 	int i = 0, cont, entera, decimales;
 	string res, need, sol;
 	entera = amount;
