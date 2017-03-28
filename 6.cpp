@@ -71,8 +71,11 @@ int inversus(vector<int> &cocientes, int mod){
 	for(int i = 0; i < cocientes.size()-1; i++){
 		q = cocientes.at(i);
 		p = p_0 - (p_1*q);
-		if (p<0)//p = modulo(p, mod);
-			p = p%mod;
+		//cout << p << " = " << p_0 << " - " << p_1 << "*" << q << endl;
+		if (p<0)
+            p = modulo(p, mod);
+			//p = p%mod;
+       // cout << p << endl;
 		p_0 = p_1;
 		p_1 = p;
 	}
@@ -87,22 +90,22 @@ void inv()
     cin>>modul;
 	vector<int> results;
 	modOriginal = modul;
-	while(1){ 
+	while(1){
 		prevMod = modul % a; //prevmod = r
 		b = (modul - prevMod) / a;
 		//cout << modul << " = " << b << "(" << a << ") + " << prevMod << endl;
 		results.push_back(b);
 		if (prevMod == 0)
 			break;
-		modul = a;	
-		a = prevMod; //euclides	
+		modul = a;
+		a = prevMod; //euclides
 	}
 	if (a != 1)
 		cout << "No tiene inverso.";
 	else {
 		resul = inversus(results, modOriginal); //division entre 0?
 		cout << "El inverso es: " << resul << endl;
-	}	
+	}
 }
 int main()
 {
