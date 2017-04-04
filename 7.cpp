@@ -30,11 +30,11 @@ int inversus(vector<int> &cocientes, int mod){
 
 class Cesar{
 private:
-	string alfabeto;
 	int publicKey;
 	int privateKey;
+	int alfabetoSize;
 	void privSetPrivKey(){ //private key setter, private function
-		int a = this->publicKey, b, resul, modul = alfabeto.length(), modOriginal, prevMod = 1;
+		int a = this->publicKey, b, resul, modul = this->alfabetoSize, modOriginal, prevMod = 1;
 		vector<int> results;
 		modOriginal = modul;
 		while(1){
@@ -55,8 +55,8 @@ private:
 	}
 public:
 	Cesar(int pubkey){
-		this -> alfabeto = "abcdefghijklmnopqrstuvwxyz";
 		this -> publicKey = pubkey;
+		this->alfabetoSize = 256;
 		privSetPrivKey();
 	}
 	//setters and getters
@@ -66,60 +66,30 @@ public:
 	int getPubKey() {return this->publicKey;}
 	//class functions
 	string cifrar(string cadena){
-		/*int i = 0, found;
-		string cifrado, letra;// = "";
-		for (i; i<msj.length(); i++){
-			letra = msj[i];
-			if (letra == " "){
-				cifrado += " ";
-				continue;
-			}
-			found = alfabeto.find(letra);
-			found += this->privateKey;
-			if (found > alfabeto.length())
-				found = found % alfabeto.length();
-			cifrado += alfabeto[found];*/
-    int i;
-    string letra;
+    int i, ascii, res;
+    char letra;
     for(i = 0; i <= cadena.size(); i++){
         letra = cadena[i];
-        if (letra == " ")
-            continue;
-        else if (alfabeto.find(cadena[i])+privateKey >= alfabeto.size())
-            cadena[i] = alfabeto[modulo(alfabeto.find(cadena[i])+privateKey , alfabeto.size())];
+		ascii = int(letra);
+		res = ascii * this->publicKey;
+        if (res >= this->alfabetoSize)
+            cadena[i] = char(modulo(res, this->alfabetoSize)); 
         else
-            cadena[i] = alfabeto[alfabeto.find(cadena[i])+privateKey];
+            cadena[i] = char(res);
     }
     return cadena;
-		}
+}
 	string descifrar(string cadena){
-		/*int i = 0, found;
-		string descifrado, letra;
-		for (i; i<cifrado.length(); i++){
-			letra = cifrado[i];
-			if (letra == " "){
-				descifrado += " ";
-				continue;
-			}
-			found = alfabeto.find(letra);
-			found -= this->privateKey;
-			if (found < 0){
-				found = found % alfabeto.length();
-			}
-			descifrado += alfabeto[found];
-		}
-		return descifrado;
-	}*/
-	int i;
-    string letra;
+	int i, ascii, res;
+    char letra;
     for (i = 0; i <= cadena.size(); i++){
         letra = cadena[i];
-        if (letra == " ")
-            continue;
-        if(privateKey - alfabeto.find(cadena[i]) > 0)
-            cadena[i] = alfabeto[modulo(alfabeto.find(cadena[i]) - privateKey , alfabeto.size())];
+		ascii = int(letra);
+		res = ascii * this->privateKey;
+        if(res >= this->alfabetoSize)
+            cadena[i] = char(modulo(res, this->alfabetoSize));
         else
-            cadena[i] = alfabeto[alfabeto.find(cadena[i])-privateKey];
+            cadena[i] = char(res);
     }
     return cadena;
     }
