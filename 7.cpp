@@ -66,106 +66,51 @@ public:
 	int getPubKey() {return this->publicKey;}
 	//class functions
 	string cifrar(string cadena){
-    int i, ascii, res;
+    int i, ascii, res, modula;
     char letra;
     for(i = 0; i <= cadena.size(); i++){
         letra = cadena[i];
+		//DEBUGGINGcout << "char " << letra << endl;
 		ascii = int(letra);
+		//DEBUGGINGcout << "ascii: " << ascii << endl;
 		res = ascii * this->publicKey;
-        if (res >= this->alfabetoSize)
-            cadena[i] = char(modulo(res, this->alfabetoSize)); 
-        else
+		//DEBUGGINGcout << "multiplicacion " << res << endl;
+		modula = modulo(res, this->alfabetoSize);
+		if (res == 10 || modula == 10){
+			cadena[i] = 'b';
+		}
+        else if (res >= this->alfabetoSize){
+            cadena[i] = char(modulo(res, this->alfabetoSize));
+			//DEBUGGINGcout << "modulo " << modulo(res, this->alfabetoSize) << endl;
+        }else
             cadena[i] = char(res);
+		//DEBUGGINGcout << "char cifrado: " << cadena[i] << endl;
     }
     return cadena;
 }
 	string descifrar(string cadena){
-	int i, ascii, res;
-    char letra;
-    for (i = 0; i <= cadena.size(); i++){
-        letra = cadena[i];
-		ascii = int(letra);
-		res = ascii * this->privateKey;
-        if(res >= this->alfabetoSize)
-            cadena[i] = char(modulo(res, this->alfabetoSize));
-        else
-            cadena[i] = char(res);
-    }
-    return cadena;
-    }
+		int i, ascii, res, modula;
+		char letra;
+		for (i = 0; i <= cadena.size(); i++){
+			letra = cadena[i];
+			if (letra == 'b')
+				continue;
+			//DEBUGGINGcout << "char " << letra << endl;
+			ascii = int(letra);
+			//DEBUGGINGcout << "ascii: " << ascii << endl;
+			res = ascii * this->privateKey;
+			//DEBUGGINGcout << "multiplicacion " << res << endl;
+			if(res >= this->alfabetoSize){
+				cadena[i] = char(modulo(res, this->alfabetoSize));
+				//DEBUGGINGcout << "modulo " << modulo(res, this->alfabetoSize) << endl;
+			}else
+				cadena[i] = char(res);
+			//DEBUGGINGcout << "char descifrado: " << cadena[i] << endl;
+		}
+		return cadena;
+	}
 };
 
-/*class Cesar
-{
-private:
-    int clave;
-    string alfabeto = "abcdefghijklmnopqrstuvwxyz";
-    int privateKey;
-	void privSetPrivKey(){ //private key setter, private function
-		int a = this->clave, b, resul, modul = alfabeto.length(), modOriginal, prevMod = 1;
-		vector<int> results;
-		modOriginal = modul;
-		while(1){
-			prevMod = modul % a; //prevmod = r
-			b = (modul - prevMod) / a;
-			results.push_back(b);
-			if (prevMod == 0)
-				break;
-			modul = a;
-			a = prevMod; //euclides
-		}
-		if (a != 1)
-			this->privateKey = 0;
-		else {
-			resul = inversus(results, modOriginal);
-			this->privateKey = resul;
-		}
-	}
-public:
-    void setPublicKey(int pubkey) { this -> clave = pubkey; }
-	void setPrivateKey(int privkey) { this -> privateKey = privkey; }
-	int getPrivateKey() { return this->privateKey;}
-	int getPubKey() {return this->clave;}
-Cesar(int clav)
-{
-    this->clave = clav;
-    privSetPrivKey();
-}int i;
-    for (i = 0; i <= cadena.size(); i++){
-        if(clave - alfabeto.find(cadena[i]) > 0)
-            cadena[i] = alfabeto[modulo(alfabeto.find(cadena[i]) - clave , alfabeto.size())];
-        else
-            cadena[i] = alfabeto[alfabeto.find(cadena[i])-clave];
-    }
-    return cadena;
-    }
-
-string cifrar(string cadena)
-{
-    int i;
-    for(i = 0; i <= cadena.size(); i++){
-        if (cadena[i] == " ")
-            continue;
-        else if (alfabeto.find(cadena[i])+clave >= alfabeto.size())
-            cadena[i] = alfabeto[modulo(alfabeto.find(cadena[i])+clave , alfabeto.size())];
-        else
-            cadena[i] = alfabeto[alfabeto.find(cadena[i])+clave];
-    }
-    return cadena;
-}
-
-string descifrar(string cadena)
-{
-    int i;
-    for (i = 0; i <= cadena.size(); i++){
-        if(clave - alfabeto.find(cadena[i]) > 0)
-            cadena[i] = alfabeto[modulo(alfabeto.find(cadena[i]) - clave , alfabeto.size())];
-        else
-            cadena[i] = alfabeto[alfabeto.find(cadena[i])-clave];
-    }
-    return cadena;
-    }
-};*/
 void cifrando(){
 	ifstream msjOriginal;
 	ofstream msjCifrado;
