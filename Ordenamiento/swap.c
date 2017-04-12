@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 void swap(int *p, int *q){
-	int *temp;
-	*temp = *p;
+	int temp;
+	temp = *p;
 	*p = *q;
-	*q = *temp;
+	*q = temp;
 }
 
 int main(){
