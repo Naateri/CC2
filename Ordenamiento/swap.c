@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//swap en C
 void swap(int *p, int *q){
 	int temp;
 	temp = *p;
