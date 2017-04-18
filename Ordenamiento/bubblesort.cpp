@@ -12,12 +12,7 @@ void swap(int *p, int *q){
 }
 
 int sizeOfArray(int *a, int *b){ //funciona mientras no se repitan elementos
-	int i = 1;
-	while(*a != *b){
-		a = a+1;
-		i++;
-	}
-	return i;
+	return (b-a) + 1;
 }
 
 void printArray(int *a, int n){
