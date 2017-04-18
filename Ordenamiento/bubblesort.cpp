@@ -35,7 +35,7 @@ void bubbleSort(int *a, int *b){
 	while (status){
 		status = false;
 		a0 = a; a1 = (a0 + 1);
-		for(int i = 0; a < b; i++, a++){
+		for(a; a < b; a++){
 			if (*a0 > *a1){
 				swap(a0, a1);
 				status = true;
@@ -52,5 +52,3 @@ int main(){
 	bubbleSort(a, (a+9));
 	printArray(a, 10);
 }
-
-
