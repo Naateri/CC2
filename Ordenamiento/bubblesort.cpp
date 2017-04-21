@@ -20,12 +20,10 @@ int sizeOfArray(int *a, int *b){ //funciona mientras no se repitan elementos
 	return i;
 }
 
-void printArray(int *a, int n){
-	for (int i = 0; i < n; i++){
+void printArray(int *a, int *b){
+	for (a; a < b; a++)
 		cout << *a << ", ";
-		a++;
-	}
-	cout << '\n';
+	cout << *a << '\n';
 }
 
 void bubbleSort(int *a, int *b){
@@ -48,7 +46,8 @@ void bubbleSort(int *a, int *b){
 }
 
 int main(){
-	int a[] = {4, 6, 2, 12, 10, 3, 9, 11, 8, 16};
+	int a[] = {4, 6, 2, 12, 10, 3, 9, 11, 16, 8};
+	printArray(a, (a+9));
 	bubbleSort(a, (a+9));
-	printArray(a, 10);
+	printArray(a, (a+9));
 }

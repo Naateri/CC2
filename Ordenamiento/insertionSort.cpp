@@ -16,12 +16,13 @@ void swap(int *p, int *q){
 void printArray(int *a, int *b){
 	for (a; a < b; a++)
 		cout << *a << ", ";
-	cout << '\n';
+	cout << *a << '\n';
 }
 
 void insertionSort(int *a, int *b){
 	int *a0, *aux;
 	int x;
+	b++;
 	a0 = a+1;
 	for(a0; a0 < b; a0++){
 		x = *a0;
@@ -35,7 +36,7 @@ void insertionSort(int *a, int *b){
 }
 
 int main(){
-	int a[] = {4, 6, 2, 12, 10, 3, 9, 11, 8, 16};
+	int a[] = {4, 6, 2, 12, 10, 3, 9, 11, 16,8};
 	printArray(a, (a+9));
 	insertionSort(a, (a+9));
 	printArray(a, (a+9));
