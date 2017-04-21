@@ -13,36 +13,30 @@ void swap(int *p, int *q){
 	*q = temp;
 }
 
-int sizeOfArray(int *a, int *b){ 
-	return (b-a) + 1;
-}
-
-void printArray(int *a, int n){
-	for (int i = 0; i < n; i++){
+void printArray(int *a, int *b){
+	for (a; a < b; a++)
 		cout << *a << ", ";
-		a++;
-	}
 	cout << '\n';
 }
 
-void selectionSort(int *a, int *b){ //hacerlo sin (x + i)
-	int *a0, *min; 
-	//int n = sizeOfArray(a, b);
-	for (a; a < b-1; i++){
-		a0 = a+i;
-		min = a+i;
-		for (a + aDeArriba; a+aDeArriba < b; j++){ //obviamente no compila
-			a0++;
-			if (*a0 < *min)
+void selectionSort(int *a, int *b){
+	int *a0, *min;
+	//a0 = a; 
+	for (a; a < b-1; a++){
+		a0 = a;
+		min = a;
+		for (a0; a0 < b; a0++){
+			if (*(a0) < *min)
 				min = a0;
 		}
-		if (*min != *(a+i))
+		if (*min != *(a0))
 			swap(a, min);
 	}
 }
 
 int main(){
 	int a[] = {4, 6, 2, 12, 10, 3, 9, 11, 8, 16};
+	printArray(a, (a+9));
 	selectionSort(a, (a+9));
-	printArray(a, 10);
+	printArray(a, (a+9));
 }
