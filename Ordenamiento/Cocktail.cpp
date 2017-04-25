@@ -7,7 +7,7 @@ using namespace std;
 void generar(int *a, int tam){
     srand(time(NULL));
     for(int i = 0; i < tam; i++){
-        a[i] = rand()%20;
+        a[i] = rand()%50;
     }
 }
 
@@ -24,80 +24,41 @@ void imprimir(int *a, int tam){
     cout << "]" << endl;
 }
 
-void cocktail_1(int *a, int tam){
-    int *fin;
-    fin  = &a[tam-1];
-    int r = tam;
-    bool compro = 1;
-    int contador = 0;
-    while (compro){
-        compro = 0;
-        for(int i = 0; i < r-1; i++){
-            if(*a > *(a+1)){
-                swap(*a,*(a+1));
-                ++contador;
-                compro = 1;
-            }
-
-            if(*fin < *(fin-1)){
-                swap(*fin,*(fin-1));
-                ++contador;
-                compro = 1;
-            }
-            a++;
-            fin--;
-        }
-        r--;
-        swap(a,fin);
-    }
-    cout << contador << endl;
-}
-
-void cocktail_2(int *a, int tam){
-    int *fin;
-    fin  = &a[tam-1];
-    int r = tam;
-    int contador = 0;
+void cocktail(int *a, int *fin){
+    int *aux;
+    aux = a;
     bool compro = 1;
     while (compro){
         compro = 0;
-        for(int i = 0; i < r-1; i++){
+        for(; a < fin; a++){
             if(*a > *(a+1)){
                 swap(*a, *(a+1));
-                ++contador;
                 compro = 1;
             }
-            a++;
         }
-
-        for(int j = 0; j < r-1; j++){
+        for(; fin != aux; fin--){
             if(*fin < *(fin-1)){
                 swap(*fin, *(fin-1));
-                ++contador;
                 compro = 1;
             }
-            --fin;
         }
-        r--;
         swap(a,fin);
+        a++;
+        fin--;
     }
-    cout << contador << endl;
 }
 
 int main()
 {
-    int a[11];
-    int b[11];
-    int tam = sizeof(a)/sizeof(a[0]);
-    generar(a,tam);
-    imprimir(a,tam);
-    for(int i = 0; i < 11; i++){
-        b[i] = a[i];
-    }
-    cocktail_1(a,tam);
-    imprimir(a,tam);
-    cocktail_2(b,tam);
-    imprimir(b,tam);
+    int tama;
+    cout << "Ingrese el largo: ";
+    cin >> tama;
+    int a[tama];
+    generar(a,tama);
+    imprimir(a,tama);
+
+    cocktail(a,a+tama);
+    imprimir(a,tama);
 
     return 0;
 }

@@ -11,15 +11,6 @@ void swap(int *p, int *q){
 	*q = temp;
 }
 
-int sizeOfArray(int *a, int *b){ //funciona mientras no se repitan elementos
-	int i = 1;
-	while(*a != *b){
-		a = a+1;
-		i++;
-	}
-	return i;
-}
-
 void printArray(int *a, int *b){
 	for (a; a < b; a++)
 		cout << *a << ", ";
@@ -41,7 +32,8 @@ void bubbleSort(int *a, int *b){
 			a0 = a1;
 			a1 = (a1+1);
 		}
-		a = a_b - 1;
+		a = a_b;
+		b--;
 	}
 }
 
