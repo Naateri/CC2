@@ -13,3 +13,4 @@ int comparar(char* CadenaA, char* CadenaB){
 		return -1;
 	else
 		return 1;
+}
