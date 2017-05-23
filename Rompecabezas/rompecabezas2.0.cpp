@@ -21,10 +21,10 @@ bool ordenado(int (*mat)[4]){
 				return 0;
 			}
 		}
-		cout << endl;
+		//cout << endl;
 		mat++;
 	}
-	cout << "USTED GANÓ!!\n";
+	cout << "USTED GANA!!\n";
 	return 1;
 }
 
@@ -46,7 +46,7 @@ void llenar_romp(){
 void buscar_0(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			if(rompecabezas[i][j] == 0){
+			if(*(*(rompecabezas+i)+j) == 0){
 				pos_x = i;
 				pos_y = j;
 			}
@@ -57,7 +57,7 @@ void buscar_0(){
 void imprimir(){
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
-			cout << rompecabezas[i][j] << " ";
+			cout << *(*(rompecabezas+i)+j) << " ";
 		}
 		cout << endl;
 	}
@@ -79,9 +79,9 @@ void tecla(){
 		case 72:
 			///Arriba
 			if(pos_x != 0){
-				rompecabezas[pos_x][pos_y] = rompecabezas[pos_x-1][pos_y];
+				*(*(rompecabezas+pos_x)+pos_y) = *(*(rompecabezas+(pos_x-1))+pos_y);
 				--pos_x;
-				rompecabezas[pos_x][pos_y] = 0;
+				*(*(rompecabezas+pos_x)+pos_y) = 0;
 				cout << endl;
 				imprimir();
 			}
@@ -90,9 +90,9 @@ void tecla(){
 		case 80:
 			///Abajo
 			if(pos_x != 3){
-				rompecabezas[pos_x][pos_y] = rompecabezas[pos_x+1][pos_y];
+				*(*(rompecabezas+pos_x)+pos_y) = rompecabezas[pos_x+1][pos_y];
 				++pos_x;
-				rompecabezas[pos_x][pos_y] = 0;
+				*(*(rompecabezas+pos_x)+pos_y) = 0;
 				cout << endl;
 				imprimir();
 			}
@@ -101,9 +101,9 @@ void tecla(){
 		case 75:
 			///Izquierda
 			if(pos_y != 0){
-				rompecabezas[pos_x][pos_y] = rompecabezas[pos_x][pos_y-1];
+				*(*(rompecabezas+pos_x)+pos_y) = *(*(rompecabezas+pos_x)+(pos_y-1));
 				--pos_y;
-				rompecabezas[pos_x][pos_y] = 0;
+				*(*(rompecabezas+pos_x)+pos_y) = 0;
 				cout << endl;
 				imprimir();
 			}
@@ -112,9 +112,9 @@ void tecla(){
 		case 77:
 			///Derecha
 			if(pos_y != 3){
-				rompecabezas[pos_x][pos_y] = rompecabezas[pos_x][pos_y+1];
+				*(*(rompecabezas+pos_x)+pos_y) = *(*(rompecabezas+pos_x)+(pos_y+1));
 				++pos_y;
-				rompecabezas[pos_x][pos_y] = 0;
+				*(*(rompecabezas+pos_x)+pos_y) = 0;
 				cout << endl;
 				imprimir();
 			}
@@ -131,3 +131,4 @@ int main()
 	buscar_0();
 	tecla();
 }
+
