@@ -90,7 +90,7 @@ void tecla(){
 		case 80:
 			///Abajo
 			if(pos_x != 3){
-				*(*(rompecabezas+pos_x)+pos_y) = rompecabezas[pos_x+1][pos_y];
+				*(*(rompecabezas+pos_x)+pos_y) = *(*(rompecabezas+(pos_x+1)) + pos_y);
 				++pos_x;
 				*(*(rompecabezas+pos_x)+pos_y) = 0;
 				cout << endl;
