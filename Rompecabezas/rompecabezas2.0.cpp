@@ -11,12 +11,18 @@ int pos_y;
 
 bool ordenado(int (*mat)[4]){
 	int *row = *mat;
+	int cont = 1;
 	for (int i = 0; i < 4; i++){
 		for (int j = 0; j < 4; j++){
 			if (*row < *(row+1)){
 				//cout << *row << " ";
+				++cont;
 				row++;
 			} else {
+			    if (cont == 15 && rompecabezas[3][3] == 0){
+                    rompecabezas[3][3] = 16;
+                    break;
+			    }
 				//cout << "NO " << *row << endl;
 				return 0;
 			}
@@ -66,9 +72,9 @@ void imprimir(){
 void tecla(){
 	char cTecla;
 	cout << "Presione una tecla ..." << endl;
-	
+
 	//while(cTecla != 27)
-	while(!ordenado(rompecabezas) || cTecla != 27)
+	while(!ordenado(rompecabezas) )
 	{
 		cTecla = getch();
 		if(cTecla == 0)
@@ -86,7 +92,7 @@ void tecla(){
 				imprimir();
 			}
 			break;
-			
+
 		case 80:
 			///Abajo
 			if(pos_x != 3){
@@ -97,7 +103,7 @@ void tecla(){
 				imprimir();
 			}
 			break;
-			
+
 		case 75:
 			///Izquierda
 			if(pos_y != 0){
@@ -108,7 +114,7 @@ void tecla(){
 				imprimir();
 			}
 			break;
-			
+
 		case 77:
 			///Derecha
 			if(pos_y != 3){
