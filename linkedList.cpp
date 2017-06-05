@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 using namespace std;
 
 class Node{
@@ -63,6 +64,13 @@ public:
 		}
 		C.append(lel->val);
 		return C;
+	}
+	friend pair<int, int> Josephus(int muertos, int soldados){
+		pair<int, int> a;
+		LinkedList A;
+		for (int i = 0; i < soldados; i++)
+			A.append(i);
+		return a;
 	}
 };
 
