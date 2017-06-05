@@ -13,28 +13,27 @@ private:
 public:	
 	LinkedList(){
 		this->first = nullptr;
-		//this->first->val = nullptr;
 	}
 	void append(int value){
-		cout << "Append:\n";
 		Node *element = new Node;
 		element->val = value;
-		cout << "New element created\n";
 		if (first == nullptr){
 			first = element; 
 			element->next = nullptr;
 		} else {
 			Node *lel;
 			lel = first;
-			while (lel->next != nullptr && lel->val < value){
+			while (lel->next != nullptr && lel->next->val < value){
 				lel = lel->next;
 			}
-			cout << "out of loop\n";
-			if (lel->next == nullptr){
+			if (lel->next == nullptr && lel->val < value){
 				lel->next = element;
 				element->next = nullptr;
+			} else if (lel->val > value){
+				element->next = lel;
+				this->first = element;
 			} else {
-				element->next = lel->next->next;
+				element->next = lel->next;
 				lel->next = element;
 			}
 		}
@@ -48,20 +47,46 @@ public:
 		}
 		cout << endl;
 	}
+	LinkedList operator+(const LinkedList &B){
+		LinkedList C;
+		Node *lel;
+		lel = this->first;
+		while (lel->next != nullptr){
+			C.append(lel->val);
+			lel = lel->next;
+		}
+		C.append(lel->val);
+		lel = B.first;
+		while (lel->next != nullptr){
+			C.append(lel->val);
+			lel = lel->next;
+		}
+		C.append(lel->val);
+		return C;
+	}
 };
 
 int main(int argc, char *argv[]) {
-	cout << "Main\n";
-	LinkedList *A = new LinkedList;
+	LinkedList A, B, C;
 	//LinkedList A;
 	cout << "Linked list created\n";
-	A->append(3);
-	A->append(5);
-	A->append(7);
+	A.append(2);
+	A.append(4);
+	A.append(6);
+	A.append(8);
+	A.append(10);
 	//A->append(5);
 	//A->append(2);
 	//A->append(4);
-	A->print();
+	A.print();
+	B.append(1);
+	B.append(3);
+	B.append(5);
+	B.append(7);
+	B.append(15);
+	B.print();
+	C = A + B;
+	C.print();
 	//delete A;
 	return 0;
 }
