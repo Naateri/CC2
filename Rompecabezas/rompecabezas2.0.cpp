@@ -19,8 +19,8 @@ bool ordenado(int (*mat)[4]){
 				++cont;
 				row++;
 			} else {
-			    if (cont == 15 && rompecabezas[3][3] == 0){
-                    rompecabezas[3][3] = 16;
+			    if (cont == 15 && *(*(rompecabezas+3)+3) == 0){
+                    *(*(rompecabezas+3)+3) = 16;
                     break;
 			    }
 				//cout << "NO " << *row << endl;
@@ -42,8 +42,8 @@ void llenar_romp(){
 	while (num != 16){
 		int i = rand()%4;
 		int j = rand()%4;
-		if(rompecabezas[i][j] == 0){
-			rompecabezas[i][j] = num;
+		if(*(*(rompecabezas+i)+j) == 0){
+			*(*(rompecabezas+i)+j) = num;
 			num++;
 		}
 	}
@@ -61,9 +61,13 @@ void buscar_0(){
 }
 
 void imprimir(){
+    system("cls");
 	for(int i = 0; i < 4; i++){
 		for(int j = 0; j < 4; j++){
 			cout << *(*(rompecabezas+i)+j) << " ";
+			if(*(*(rompecabezas+i)+j) < 10){
+                cout << " ";
+			}
 		}
 		cout << endl;
 	}
@@ -137,4 +141,3 @@ int main()
 	buscar_0();
 	tecla();
 }
-
