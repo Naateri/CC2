@@ -98,7 +98,7 @@ LinkedList Josephus(int muertos, int soldados){
 	LinkedList A;
 	for (int i = 1; i <= soldados; i++)
 		A.append(i);
-	int ded = muertos-1;
+	int ded = (muertos-1) % soldados;
 	for (soldados; soldados > 2; soldados--){
 		//if (soldados == 3) break;
 		A.del(ded);
