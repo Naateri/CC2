@@ -39,6 +39,33 @@ public:
 			}
 		}
 	}
+	void del(int i){
+		Node* lel;
+		Node* prev;
+		lel = this->first;
+		prev = lel;
+		lel = lel->next;
+		int j = 1;
+		if (i == 0){
+			prev->next = nullptr;
+			this->first = lel;
+			cout << "Borrado: " << prev->val << endl;
+		} else {
+			while(j < i && lel->next != nullptr){
+				lel = lel->next;
+				prev = prev->next;
+				j++;
+			}
+			if (lel->next == nullptr){
+				prev->next = nullptr;
+			} else {
+				prev->next = lel->next;
+				lel->next = nullptr;
+			}
+			cout << "Borrado: " << lel->val << endl;
+			//delete lel;
+		}
+	}
 	void print(){
 		Node *lel;
 		lel = this->first;
@@ -65,19 +92,24 @@ public:
 		C.append(lel->val);
 		return C;
 	}
-	friend pair<int, int> Josephus(int muertos, int soldados){
-		pair<int, int> a;
-		LinkedList A;
-		for (int i = 0; i < soldados; i++)
-			A.append(i);
-		return a;
-	}
 };
 
+LinkedList Josephus(int muertos, int soldados){
+	LinkedList A;
+	for (int i = 1; i <= soldados; i++)
+		A.append(i);
+	int ded = muertos-1;
+	for (soldados; soldados > 2; soldados--){
+		//if (soldados == 3) break;
+		A.del(ded);
+		ded = ded + (muertos-1);
+		ded = ded % (soldados-1);
+	}
+	return A;
+}
 int main(int argc, char *argv[]) {
 	LinkedList A, B, C;
 	//LinkedList A;
-	cout << "Linked list created\n";
 	A.append(2);
 	A.append(4);
 	A.append(6);
@@ -95,6 +127,9 @@ int main(int argc, char *argv[]) {
 	B.print();
 	C = A + B;
 	C.print();
+	LinkedList Jos;
+	Jos = Josephus(3, 12);
+	Jos.print();
 	//delete A;
 	return 0;
 }
