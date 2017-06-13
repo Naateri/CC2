@@ -63,7 +63,7 @@ public:
 				lel->next = nullptr;
 			}
 			cout << "Borrado: " << lel->val << endl;
-			//delete lel;
+			delete lel;
 		}
 	}
 	void print(){
@@ -92,6 +92,25 @@ public:
 		C.append(lel->val);
 		return C;
 	}
+	LinkedList operator+=(const LinkedList &B){
+		Node *lel;
+		Node *lal;
+		lel = this->first;
+		lal = B.first;
+		if (lel->val > lal->val){
+			this->first = lal;
+			lel->next = lel->next->next;
+			lal->next = lel;
+		}
+		while(lel != nullptr && lal != nullptr){
+			if (lel->val < lal-> val){
+				lel->next = lel->next->next;
+				lal->next = lel;
+			} else {
+				;
+			}
+		}
+	}
 };
 
 LinkedList Josephus(int muertos, int soldados){
@@ -112,8 +131,8 @@ int main(int argc, char *argv[]) {
 	//LinkedList A;
 	A.append(2);
 	A.append(4);
-	A.append(6);
 	A.append(8);
+	A.append(9);
 	A.append(10);
 	//A->append(5);
 	//A->append(2);
@@ -128,7 +147,8 @@ int main(int argc, char *argv[]) {
 	C = A + B;
 	C.print();
 	LinkedList Jos;
-	Jos = Josephus(3, 12);
+	Jos = Josephus(3, 40);
+	cout << "Quedan los soldados: ";
 	Jos.print();
 	//delete A;
 	return 0;
