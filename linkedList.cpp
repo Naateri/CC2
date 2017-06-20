@@ -11,7 +11,7 @@ public:
 class LinkedList{
 private:
 	Node *first;
-public:	
+public:
 	LinkedList(){
 		this->first = nullptr;
 	}
@@ -19,7 +19,7 @@ public:
 		Node *element = new Node;
 		element->val = value;
 		if (first == nullptr){
-			first = element; 
+			first = element;
 			element->next = nullptr;
 		} else {
 			Node *lel;
@@ -92,24 +92,50 @@ public:
 		C.append(lel->val);
 		return C;
 	}
-	LinkedList operator+=(const LinkedList &B){
+	void concatenar(LinkedList B){
 		Node *lel;
 		Node *lal;
+		Node *aux; //apunta a lal para guardar el nodo y no perder el enlace
+		Node *aux2; //apunta a lel para guarda el nodo y no perder el enlace
 		lel = this->first;
 		lal = B.first;
-		if (lel->val > lal->val){
+		if (lel->val > lal->val){ //si lal es menor, el primer nodo de lal se vuelve el primero de la lista
 			this->first = lal;
-			lel->next = lel->next->next;
+			aux = lal->next;
 			lal->next = lel;
-		}
-		while(lel != nullptr && lal != nullptr){
+			lal = aux; //anterior next antes de apuntar al anterior
+		} else aux = lal;
+		while(lel->next != nullptr && lal->next != nullptr){
 			if (lel->val < lal-> val){
-				lel->next = lel->next->next;
-				lal->next = lel;
+				aux2 = lel->next;
+				if(lel->next->val < lal->val){
+					lel = lel->next;
+				} else {
+					lel->next = lal;
+					lel = aux2;
+				}
 			} else {
-				;
+				aux = aux->next;
+				if(lal->next->val < lel->val){
+					lal = lal->next;
+				} else {
+					lal->next = lel;
+					lal = aux;
+				}
 			}
 		}
+		//Completando la lista que falte hasta antes de llegar a nullptr
+		if(lel->next == nullptr){
+			lel->next = lal;
+		} else {
+			lal->next = lel;
+		}
+        while(lel != nullptr){
+            lel = lel->next;
+        }
+        while(lal != nullptr){
+            lal = lal->next;
+        }
 	}
 };
 
@@ -129,27 +155,32 @@ LinkedList Josephus(int muertos, int soldados){
 int main(int argc, char *argv[]) {
 	LinkedList A, B, C;
 	//LinkedList A;
-	A.append(2);
+	A.append(1);
 	A.append(4);
 	A.append(8);
 	A.append(9);
 	A.append(10);
+	A.append(11);
 	//A->append(5);
 	//A->append(2);
 	//A->append(4);
 	A.print();
-	B.append(1);
+	B.append(2);
 	B.append(3);
 	B.append(5);
 	B.append(7);
 	B.append(15);
+	B.append(16);
+	B.append(18);
 	B.print();
-	C = A + B;
-	C.print();
-	LinkedList Jos;
+	//C = A + B;
+	//A += B;
+	A.concatenar(B);
+	A.print();
+	/*LinkedList Jos;
 	Jos = Josephus(3, 40);
 	cout << "Quedan los soldados: ";
-	Jos.print();
+	Jos.print();*/
 	//delete A;
 	return 0;
 }
