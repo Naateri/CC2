@@ -30,14 +30,14 @@ void generar(char (*mat)[8]){
 	}
 }
 
-void winner(char (*mat)[8]){ ///1 si gano P1, 0 si ganó P2
+void winner(char (*mat)[8]){ ///1 si gano P1, 0 si ganÃ³ P2
 	int uno = 0, dos = 0;
 	char *row = *mat;
 	for (int i = 0; i < 8; i++){
 		for (int j = 0; j < 8; j++){
-			if (*row == '*'){
+			if (*row == 'O'){
 				uno++;
-			} else {
+			} else if(*row == '*'){
 				dos++;
 			}
 			row++;
@@ -417,7 +417,7 @@ int main(){
 	tablero[3][4]=player2.ficha;
 	char tecla;
 	while((espacios>0)&&(player1.puntaje!=0)&&(player2.puntaje!=0)&&(tecla!=KEY_ESC)){
-		tablero[f][c]='.';
+		tablero[f][c]='-';
 		imprimir(tablero);
 		cout << endl;
 		cout << "Turno de la ficha: " << player->ficha << endl;
