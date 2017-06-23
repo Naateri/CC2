@@ -2,22 +2,19 @@
 #include <stdlib.h>
 #include <time.h>
 
-class Ordenamiento{
-public:
-	virtual bool operator()(int a, int b) = 0;
-};
+using namespace std;
 
-class Mayor: public Ordenamiento{
+class Mayor{
 public:
 	bool operator()(int a, int b){return a>b;};
 };
 
-class Menor: public Ordenamiento{
+class Menor{
 public:
 	bool operator()(int a, int b){return a<b;};
 };
 
-class AbsolutoMayor: public Ordenamiento{
+class AbsolutoMayor{
 public:
 	bool operator()(int a, int b){
 		if (a < 0){
@@ -30,7 +27,7 @@ public:
 	}
 };
 
-class AbsolutoMenor: public Ordenamiento{
+class AbsolutoMenor{
 public:
 	bool operator()(int a, int b){
 		if (a < 0){
@@ -43,7 +40,29 @@ public:
 	}
 };
 
-using namespace std;
+template <class O>
+class Ordenamiento{
+public:
+	void selectionSort(int *a, int *b);
+private:
+	O A;
+};
+template <class O>
+void Ordenamiento<O>::selectionSort(int *a, int *b){
+	int *a0, *min;
+	//a0 = a; 
+	for (a; a < b-1; a++){
+		a0 = a;
+		min = a;
+		for (a0; a0 < b; a0++){
+			//if (*A(*(a0), *min))
+			if ((A)(*a0, *min))
+				min = a0;
+		}
+		if (*min != *(a0))
+			swap(a, min);
+	}
+}
 
 void swap(int *p, int *q){
 	int temp;
@@ -100,126 +119,16 @@ bool absolutoMenor(int a, int b){
 }
 
 
-void cocktail(int *a, int *fin, bool (*p) (int, int)){
-	int *aux;
-	aux = a;
-	bool compro = 1;
-	while (compro){
-		compro = 0;
-		for(; a < fin; a++){
-			if(*a > *(a+1)){
-				swap(*a, *(a+1));
-				compro = 1;
-			}
-		}
-		for(; fin != aux; fin--){
-			if(*fin < *(fin-1)){
-				swap(*fin, *(fin-1));
-				compro = 1;
-			}
-		}
-		swap(a,fin);
-		a++;
-		fin--;
-	}
-}
-
-void quicksort(int *izq, int *der, bool (*p) (int, int))
-{
-	int *x , *a, *b, aux;
-	a = izq;
-	b = der;
-	x = a;
-	x += (der - izq) /2;
-	do{
-		while(( p(*a, *x)) && (b <= der) )
-		{
-			a++;
-		}
-		
-		while( p(*x, *b) && (b > izq) )
-		{
-			b--;
-		}
-		
-		if( a <= b )
-		{
-			swap(a,b);
-			a++;  b--;
-		}
-		
-	}while( a <= b );
-	
-	if( p(*izq,*b) )
-		quicksort( izq, b, p );
-	if( p(*a, *der) )
-		quicksort( a, der, p );
-}
-
-void bubbleSort(int *a, int *b, bool (*p) (int, int)){
-	int *a0, *a1, *a_b; //a_b = a beginning
-	a_b = a;
-	bool status = true;
-	while (status){
-		status = false;
-		a0 = a; a1 = (a0 + 1);
-		for(a; a < b; a++){
-			if (p(*a0, *a1)){
-				swap(a0, a1);
-				status = true;
-			}
-			a0 = a1;
-			a1 = (a1+1);
-		}
-		a = a_b;
-		b--;
-	}
-}
-
-void insertionSort(int *a, int *b, bool (*p) (int, int)){
-	int *a0, *aux;
-	int x;
-	b++;
-	a0 = a+1;
-	for(a0; a0 < b; a0++){
-		x = *a0;
-		aux = a0;
-		while (( (aux) > a) && ( p(*(aux - 1), x))){
-			*aux = *(aux - 1);
-			aux--;
-		}
-		*aux = x;
-	}
-}
-
-void selectionSort(int *a, int *b, Ordenamiento *A){
-	int *a0, *min;
-	//a0 = a; 
-	for (a; a < b-1; a++){
-		a0 = a;
-		min = a;
-		for (a0; a0 < b; a0++){
-			//if (*A(*(a0), *min))
-			if ((*A)(*a0, *min))
-				min = a0;
-		}
-		if (*min != *(a0))
-			swap(a, min);
-	}
-}
-
-
 
 int main(int argc, char *argv[]) {
 	bool (*p) (int, int);
 	p = absolutoMenor;
-	Ordenamiento *A = new Mayor;
+	Ordenamiento<Mayor> Ord;
 	int a[20];
 	generar(a, 20);
 	imprimir(a, 20);
-	selectionSort(a, (a+20), (A));
+	Ord.selectionSort(a, (a+20));
 	imprimir(a, 20);
-	delete A;
 	return 0;
 }
 
