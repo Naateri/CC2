@@ -6,7 +6,7 @@ using namespace std;
 
 class Mayor{
 public:
-	bool operator()(int a, int b){return a>b;};
+	bool operator()(int a, int b){return (a>b);};
 };
 
 class Menor{
@@ -40,12 +40,20 @@ public:
 	}
 };
 
+
+void swap(int *p, int *q){
+	int temp;
+	temp = *p;
+	*p = *q;
+	*q = temp;
+}
+
 template <class O>
 class Ordenamiento{
 public:
 	void selectionSort(int *a, int *b);
 private:
-	O A;
+	O Method;
 };
 template <class O>
 void Ordenamiento<O>::selectionSort(int *a, int *b){
@@ -55,20 +63,14 @@ void Ordenamiento<O>::selectionSort(int *a, int *b){
 		a0 = a;
 		min = a;
 		for (a0; a0 < b; a0++){
-			//if (*A(*(a0), *min))
-			if ((A)(*a0, *min))
+			if ((Method)(*a0, *min)){
 				min = a0;
+			}
 		}
-		if (*min != *(a0))
+		if (*min != *(a0)){
 			swap(a, min);
+		}
 	}
-}
-
-void swap(int *p, int *q){
-	int temp;
-	temp = *p;
-	*p = *q;
-	*q = temp;
 }
 
 void generar(int *a, int tam){
@@ -123,7 +125,7 @@ bool absolutoMenor(int a, int b){
 int main(int argc, char *argv[]) {
 	bool (*p) (int, int);
 	p = absolutoMenor;
-	Ordenamiento<Mayor> Ord;
+	Ordenamiento<Menor> Ord;
 	int a[20];
 	generar(a, 20);
 	imprimir(a, 20);
@@ -131,4 +133,3 @@ int main(int argc, char *argv[]) {
 	imprimir(a, 20);
 	return 0;
 }
-
