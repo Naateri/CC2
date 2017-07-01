@@ -28,6 +28,35 @@ vector<int> MakeVector(int n){
 	return v;
 }
 
+bool verificar(vector<int> numeros, int numero){
+    for(int i = 0; i < numeros.size(); i++){
+        if(numeros[i] == numero){
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<Carta> unir(vector<Carta> A, vector<Carta> B){
+    vector<Carta>C;
+    for(int i = 0; i < A.size(); i++){
+        C.push_back(A[i]);
+    }
+    for(int j = 0; j < B.size(); j++){
+        C.push_back(B[j]);
+    }
+    return C;
+}
+
+vector<Carta> partir(vector<Carta> numero,int posicion, int numeros){
+    vector <Carta> resultado;
+    for(int i = 0; i < numeros; i++){
+        resultado.push_back(numero[posicion]);
+        posicion++;
+    }
+    return resultado;
+}
+
 const int n = 75;
 
 class Dado{
@@ -88,23 +117,103 @@ public:
                     cart[j][i] = num;
                 }
             }
-            (*(*cart+2)+2) = 0;
+            (cart[2][2]) = 0;
             print5x5(cart);
         }
     }
 };
 
+class Cartillas{
+private:
+    int bolillas;
+public:
+    Cartillas(int a){
+        this -> bolillas = a;
+    }
+    operator()(int num){ ///numero de cartillas
+        int resultado;
+        for(int i = 0; i < num; i++){
+            vector<int> comprobacion;
+            cout << " B  I  N  G  O" << endl;
+            for(int j = 0; j < 5; j++){
+                for(int k=0;k<5;k++){
+                    resultado = rand()%bolillas+(k*bolillas)+1;
+                    while(verificar(comprobacion,resultado)){
+                        resultado = rand()%bolillas+(k*bolillas)+1;
+                    }
+                    if(resultado<10)
+                        cout<<" ";
+                    comprobacion.push_back(resultado);
+                    cout<<resultado<<" ";
+                }
+                cout<<endl;
+            }
+            cout<<endl<<endl;
+        }
+    }
+};
+
+class Carta{
+public:
+    string palo;
+    int numero;
+    Carta(string letra, int num){
+        this -> palo = letra;
+        this -> numero = num;
+    }
+};
+
+class Baraja{
+private:
+    vector<Carta> picas;
+    vector<Carta> corazones;
+    vector<Carta> diamantes;
+    vector<Carta> treboles;
+    vector<Carta> baraja;
+
+public:
+    Baraja(){
+        for(int j = 1; j <= 13; j++){
+            picas.push_back(Carta("P",j));
+            corazones.push_back(Carta("C",j));
+            diamantes.push_back(Carta("D",j));
+            treboles.push_back(Carta("T",j));
+        }
+        this -> baraja = unir(unir(picas,corazones),unir(diamantes,treboles));
+    }
+    operator()(int mesclas){
+        vector<Carta> resultado;
+        for(int i = 0; i < mesclas; i++){
+            vector<Carta> izquierda = partir(baraja,0,26);
+            vector<Carta> derecha = partir(baraja,26,26);
+            for(int j = 0; j < baraja.size()/2; j++){
+
+            }
+
+        }
+    }
+    void imprimir(){
+        for(int i = 0; i < baraja.size(); i++){
+            cout << baraja[i].palo << baraja[i].numero << " ";
+        }
+    }
+};
+
+
 vector<int> Bolillero::bolillas = MakeVector(n);
 int main(int argc, char *argv[]) {
 	Dado A;
 	Bolillero B;
-//	Cartilla C(n);
 	pair<int, char> hola;
 	for (int i = 0; i < 30; i++){
         hola = B(n);
 		cout << hola.second << "-" << hola.first << endl;
 	}
 	cout << "Dado: " << A(20) << endl;
+	cout << "########################################################################" << endl;
+	Cartillas Bingo(15);
+	Bingo(10);
+	cout << "########################################################################" << endl;
+
 	return 0;
 }
-
