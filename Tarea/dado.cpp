@@ -6,6 +6,7 @@
 #include <utility>
 using namespace std;
 
+class Carta;
 
 void print5x5(int (*mat)[5]){
     for(int i = 0; i < 5; i++){
@@ -182,14 +183,16 @@ public:
         this -> baraja = unir(unir(picas,corazones),unir(diamantes,treboles));
     }
     operator()(int mesclas){
-        vector<Carta> resultado;
         for(int i = 0; i < mesclas; i++){
-            vector<Carta> izquierda = partir(baraja,0,26);
-            vector<Carta> derecha = partir(baraja,26,26);
+            vector<Carta> resultado = baraja;
+            vector<Carta> nuevo;
+            vector<Carta> izquierda = partir(resultado,0,26);
+            vector<Carta> derecha = partir(resultado,26,26);
             for(int j = 0; j < baraja.size()/2; j++){
-
+                nuevo.push_back(derecha[j]);
+                nuevo.push_back(izquierda[j]);
             }
-
+            this -> baraja = nuevo;
         }
     }
     void imprimir(){
@@ -214,6 +217,10 @@ int main(int argc, char *argv[]) {
 	Cartillas Bingo(15);
 	Bingo(10);
 	cout << "########################################################################" << endl;
-
+    Baraja lol;
+    lol.imprimir();
+    cout << "#########################################################################"<<endl;
+    lol(13);
+    lol.imprimir();
 	return 0;
 }
